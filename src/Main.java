@@ -1,7 +1,55 @@
-import java.util.Scanner;
-import java.util.Stack;
+import java.util.*;
 
 public class PalindromeCheckerApp {
+
+    // Reverse String Method
+    public static boolean reverseCheck(String input) {
+
+        String reversed = "";
+
+        for(int i = input.length() - 1; i >= 0; i--) {
+            reversed += input.charAt(i);
+        }
+
+        return input.equals(reversed);
+    }
+
+    // Stack Method
+    public static boolean stackCheck(String input) {
+
+        Stack<Character> stack = new Stack<>();
+
+        for(char c : input.toCharArray()) {
+            stack.push(c);
+        }
+
+        for(char c : input.toCharArray()) {
+            if(c != stack.pop()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // Deque Method
+    public static boolean dequeCheck(String input) {
+
+        Deque<Character> deque = new LinkedList<>();
+
+        for(char c : input.toCharArray()) {
+            deque.addLast(c);
+        }
+
+        while(deque.size() > 1) {
+
+            if(deque.removeFirst() != deque.removeLast()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     public static void main(String[] args) {
 
@@ -10,25 +58,30 @@ public class PalindromeCheckerApp {
         System.out.println("Enter a string:");
         String input = scanner.nextLine();
 
-        Stack<Character> stack = new Stack<>();
+        // Reverse Algorithm
+        long start1 = System.nanoTime();
+        boolean r1 = reverseCheck(input);
+        long end1 = System.nanoTime();
 
-        // Push characters into stack
-        for(int i = 0; i < input.length(); i++) {
-            stack.push(input.charAt(i));
-        }
+        // Stack Algorithm
+        long start2 = System.nanoTime();
+        boolean r2 = stackCheck(input);
+        long end2 = System.nanoTime();
 
-        String reversed = "";
+        // Deque Algorithm
+        long start3 = System.nanoTime();
+        boolean r3 = dequeCheck(input);
+        long end3 = System.nanoTime();
 
-        // Pop characters from stack
-        while(!stack.isEmpty()) {
-            reversed = reversed + stack.pop();
-        }
+        System.out.println("\nResults:");
 
-        // Compare original and reversed
-        if(input.equals(reversed)) {
-            System.out.println("It is a Palindrome");
-        } else {
-            System.out.println("Not a Palindrome");
-        }
+        System.out.println("Reverse Method: " + r1 +
+                " | Time: " + (end1 - start1) + " ns");
+
+        System.out.println("Stack Method: " + r2 +
+                " | Time: " + (end2 - start2) + " ns");
+
+        System.out.println("Deque Method: " + r3 +
+                " | Time: " + (end3 - start3) + " ns");
     }
 }
