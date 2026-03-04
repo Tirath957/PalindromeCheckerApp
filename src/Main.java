@@ -1,7 +1,23 @@
 import java.util.Scanner;
-import java.util.Stack;
 
 public class PalindromeCheckerApp {
+
+    // Recursive function
+    public static boolean isPalindrome(String str, int start, int end) {
+
+        // Base condition
+        if (start >= end) {
+            return true;
+        }
+
+        // If characters don't match
+        if (str.charAt(start) != str.charAt(end)) {
+            return false;
+        }
+
+        // Recursive call
+        return isPalindrome(str, start + 1, end - 1);
+    }
 
     public static void main(String[] args) {
 
@@ -10,22 +26,9 @@ public class PalindromeCheckerApp {
         System.out.println("Enter a string:");
         String input = scanner.nextLine();
 
-        Stack<Character> stack = new Stack<>();
+        boolean result = isPalindrome(input, 0, input.length() - 1);
 
-        // Push characters into stack
-        for(int i = 0; i < input.length(); i++) {
-            stack.push(input.charAt(i));
-        }
-
-        String reversed = "";
-
-        // Pop characters from stack
-        while(!stack.isEmpty()) {
-            reversed = reversed + stack.pop();
-        }
-
-        // Compare original and reversed
-        if(input.equals(reversed)) {
+        if (result) {
             System.out.println("It is a Palindrome");
         } else {
             System.out.println("Not a Palindrome");
