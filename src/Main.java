@@ -15,45 +15,32 @@ public class PalindromeCheckerApp {
         Stack<Character> stack = new Stack<>();
         Queue<Character> queue = new LinkedList<>();
 
-<<<<<<< HEAD
-        // Push characters into stack
+        // Push characters into stack and queue
         for (int i = 0; i < input.length(); i++) {
             stack.push(input.charAt(i));
-=======
-        // Insert characters into stack and queue
-        for(int i = 0; i < input.length(); i++){
-            char ch = input.charAt(i);
-            stack.push(ch);
-            queue.add(ch);
->>>>>>> feature/UC6
+            queue.add(input.charAt(i));
         }
 
         boolean isPalindrome = true;
 
-<<<<<<< HEAD
-        // Pop characters from stack
+        // Compare stack pop and queue remove
         while (!stack.isEmpty()) {
-            reversed = reversed + stack.pop();
-        }
 
-        // Compare original and reversed
-        if (input.equals(reversed)) {
-=======
-        // Compare dequeue and pop
-        while(!stack.isEmpty()){
+            char fromStack = stack.pop();
+            char fromQueue = queue.remove();
 
-            if(stack.pop() != queue.remove()){
+            if (fromStack != fromQueue) {
                 isPalindrome = false;
                 break;
             }
         }
 
-        // Print result
-        if(isPalindrome){
->>>>>>> feature/UC6
+        if (isPalindrome) {
             System.out.println("It is a Palindrome");
         } else {
             System.out.println("Not a Palindrome");
         }
+
+        scanner.close();
     }
 }
