@@ -13,22 +13,27 @@ public class PalindromeCheckerApp {
         Stack<Character> stack = new Stack<>();
 
         // Push characters into stack
-        for(int i = 0; i < input.length(); i++) {
+        for (int i = 0; i < input.length(); i++) {
             stack.push(input.charAt(i));
         }
 
-        String reversed = "";
+        boolean isPalindrome = true;
 
-        // Pop characters from stack
-        while(!stack.isEmpty()) {
-            reversed = reversed + stack.pop();
+        // Pop and compare
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) != stack.pop()) {
+                isPalindrome = false;
+                break;
+            }
         }
 
-        // Compare original and reversed
-        if(input.equals(reversed)) {
+        // Print result
+        if (isPalindrome) {
             System.out.println("It is a Palindrome");
         } else {
             System.out.println("Not a Palindrome");
         }
+
+        scanner.close();
     }
 }
