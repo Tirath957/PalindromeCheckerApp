@@ -1,7 +1,31 @@
 import java.util.Scanner;
-import java.util.Stack;
 
 public class PalindromeCheckerApp {
+
+    // Service class inside same file
+    static class PalindromeChecker {
+
+        public boolean checkPalindrome(String input) {
+
+            // Normalize string
+            String processed = input.replaceAll("\\s+", "").toLowerCase();
+
+            int start = 0;
+            int end = processed.length() - 1;
+
+            while (start < end) {
+
+                if (processed.charAt(start) != processed.charAt(end)) {
+                    return false;
+                }
+
+                start++;
+                end--;
+            }
+
+            return true;
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -10,22 +34,11 @@ public class PalindromeCheckerApp {
         System.out.println("Enter a string:");
         String input = scanner.nextLine();
 
-        Stack<Character> stack = new Stack<>();
+        PalindromeChecker checker = new PalindromeChecker();
 
-        // Push characters into stack
-        for(int i = 0; i < input.length(); i++) {
-            stack.push(input.charAt(i));
-        }
+        boolean result = checker.checkPalindrome(input);
 
-        String reversed = "";
-
-        // Pop characters from stack
-        while(!stack.isEmpty()) {
-            reversed = reversed + stack.pop();
-        }
-
-        // Compare original and reversed
-        if(input.equals(reversed)) {
+        if (result) {
             System.out.println("It is a Palindrome");
         } else {
             System.out.println("Not a Palindrome");
